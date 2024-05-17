@@ -1,6 +1,6 @@
 <?php
 session_start();
-include_once("shared/connect.php"); // Kết nối tới CSDL
+include_once("shared/connect.php"); 
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $brand = $_POST['brand'];
@@ -10,7 +10,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $price = (int)$_POST['price'];
 
     // Kiểm tra và tạo thư mục uploads nếu chưa tồn tại
-    $target_dir = "uploads/"; // Đường dẫn đến thư mục lưu trữ ảnh
+    $target_dir = "uploads/"; 
     if (!file_exists($target_dir)) {
         mkdir($target_dir, 0777, true);
     }
@@ -46,7 +46,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $uploadOk = 0;
     }
 
-    // Kiểm tra xem $uploadOk có bị đặt thành 0 bởi một lỗi không
     if ($uploadOk == 0) {
         echo "File của bạn không được tải lên.";
     } else {
@@ -65,7 +64,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $stmt->bind_param("ssisss", $brand, $model, $year, $color, $price, $target_file);
             if ($stmt->execute()) {
                 echo "Thêm sản phẩm thành công!";
-                header("Location: welcome.php"); // Chuyển hướng người dùng về trang chính
+                header("Location: admin_dashboard.php"); // Chuyển hướng người dùng về trang chính
                 exit(); // Dừng việc thực hiện kịch bản tiếp theo
             } else {
                 echo "Lỗi: " . $stmt->error;
